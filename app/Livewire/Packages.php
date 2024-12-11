@@ -12,7 +12,7 @@ class Packages extends Component
         return view(
             'livewire.packages',
             [
-                'packages' => Package::limit(3)->get()
+                'packages' => Package::limit(3)->with('features')->get()
             ]
         );
     }

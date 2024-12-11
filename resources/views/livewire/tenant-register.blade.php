@@ -105,9 +105,9 @@
                         <div class="flex flex-col lg:flex-row justify-center mx-auto mt-4 gap-4" x-data="imagePreview()">
 
                             <div>
-                                <x-packages.card class="max-w-[448px] mx-auto" :package="$form->currentPackage"  />
+                                <x-packages.card class="max-w-[448px] mx-auto" :package="$form->currentPackage" />
                             </div>
-                            <div class="space-y-4 rounded-lg shadow-md mx-auto w-full py-4 px-4 max-w-[448px] bg-white">
+                            <div class="space-y-4 rounded-lg shadow-md mx-auto lg:mx-0 w-full py-4 px-4 max-w-[448px] bg-white">
                                 <div class="flex gap-4 items-center">
                                     <label class="w-32" for="">Total Price (1M)</label>
                                     <p>: {{number_format( $form->currentPackage->price)}} mmk</p>
@@ -184,7 +184,6 @@
                             <div x-show="imageUrl && isViewingImage" class="fixed top-0 left-0 bg-gray-800/20 backdrop-blur transition w-screen h-screen z-[9999] flex items-center justify-center" @click="isViewingImage = false" :class="isViewingImage ? 'opacity-1 ' : 'opacity-0 pointer-events-none'" x-transition>
                                 <img :src="imageUrl" class="h-full">
                             </div>
-
                         </div>
                         @endif
                     </div>

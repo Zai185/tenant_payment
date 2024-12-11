@@ -1,4 +1,5 @@
 <section class="py-24 px-8">
+
     <div class="container mx-auto">
         <p
             class="block antialiased font-sans leading-relaxed text-blue-gray-900 mb-4 font-bold text-lg">
@@ -14,10 +15,9 @@
             match for your business's budget and ambitions.
         </p>
         <div
-            class="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto items-center justify-center">
+            class="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto items-stretch justify-center">
 
             @foreach ($packages as $package)
-
             <x-packages.card :$package haslink />
             @endforeach
 

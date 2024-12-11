@@ -2,13 +2,10 @@
 
 use App\Livewire\Packages;
 use App\Livewire\Payment;
-use App\Livewire\TenantSignup;
+use App\Livewire\TenantRegister;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', Packages::class);
 
-Route::get('/tenant/sign-up', TenantSignup::class);
-Route::get('/packages', Packages::class)->name('packages');
-Route::get('/packages/payment', Payment::class)->name('packages.payment');
+Route::get('/tenant/sign-up', TenantRegister::class);
+

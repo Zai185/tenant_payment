@@ -7,9 +7,9 @@ use App\Models\Package;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 
-class TenantSignup extends Component
+class TenantRegister extends Component
 {
-    public $step = 1;
+    public $step = 6;
     public TenantRegisterForm $form;
     public $payment_type = 'local';
 
@@ -92,7 +92,7 @@ class TenantSignup extends Component
     {
 
         return view(
-            'livewire.tenant-signup',
+            'livewire.tenant-register',
             [
                 'business_types' => [
                     "E-commerce",

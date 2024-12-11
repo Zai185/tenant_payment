@@ -18,4 +18,8 @@ class Package extends Model
     ];
 
     public $timestamps = false;
+
+    public function features(){
+        return $this->belongsToMany(Feature::class);
+    }
 }
