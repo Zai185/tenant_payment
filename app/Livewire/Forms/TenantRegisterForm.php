@@ -26,33 +26,20 @@ class TenantRegisterForm extends Form
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'username' => 'required',
-            ],
-            "account_info" => [
                 'email' => 'required|email',
-                'phone' => 'required|string'
-            ],
-            'password' => [
+                'phone' => 'required|string',
                 'password' => ['required', 'confirmed', Password::defaults()],
             ],
+          
             "business_info" => [
                 'business_name' => 'required',
-                'business_domain' => 'required'
-            ],
-            "business_type" => [
+                'business_domain' => 'required',
                 'business_type' => 'required',
                 'business_size' => 'required|integer'
             ],
-            "choose_package" => [
-                "package" => 'required',
-                "currentPackage" => "required"
-            ]
+           
         ];
     }
-    protected $messages = [
-        'currentPackage.required' => "You must choose one package to continue"
-    ];
-
-
     public function validateStep($step)
     {
         $this->validate($this->rules()[$step]);

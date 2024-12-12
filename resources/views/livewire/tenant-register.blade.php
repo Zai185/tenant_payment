@@ -17,27 +17,11 @@
                             <x-input has-error type="text" wire:model="form.username" placeholder="Username" layout-class="col-span-2" label="Username" />
                         </div>
 
-                        <div class="flex flex-col mt-8">
-                            <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
-                        </div>
-                    </div>
-
-                    <div x-show="step == 2" x-transition class="w-[448px] mx-auto">
-
-                        <div class="grid gap-2">
+                        <div class="grid grid-cols-2 gap-2">
                             <x-input has-error type="email" wire:model="form.email" placeholder="Email" label="Email" />
                             <x-input has-error type="text" wire:model="form.phone" placeholder="Phone" label="Phone" />
                         </div>
 
-
-                        <div class="flex flex-col mt-8">
-                            <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
-                            <x-button class="w-48 mx-auto mb-2 !bg-transparent !text-gray-500" @click="$wire.stepBack()">Back</x-button>
-                        </div>
-
-                    </div>
-
-                    <div x-show="step == 3" x-transition class="w-[448px] mx-auto">
                         <div class="grid gap-2">
                             <x-input has-error type="password" wire:model="form.password" placeholder="Password" label="Password" />
                             <x-input has-error type="password" wire:model="form.password_confirmation" placeholder="Confirm Password" label="Password confirmation" />
@@ -50,21 +34,13 @@
 
                     </div>
 
-                    <div x-show="step == 4" x-transition class="w-[448px] mx-auto">
+                    <div x-show="step == 2" x-transition class="w-[448px] mx-auto">
                         <div class="grid gap-2">
                             <x-input has-error type="text" wire:model="form.business_name" wire:keydown.debounce.800ms="updateDomain()" label="Business Name" />
                             <x-input.right-text text=".picosbs.com" type="text" wire:model="form.business_domain" label="Domain" />
                             <span wire:loading="updateDomain">Generating Domain...</span>
                         </div>
 
-                        <div class="flex flex-col mt-8">
-                            <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
-                            <x-button class="w-48 mx-auto mb-2 !bg-transparent !text-gray-500" @click="$wire.stepBack()">Back</x-button>
-                        </div>
-
-                    </div>
-
-                    <div x-show="step == 5" x-transition class="w-[448px] mx-auto">
                         <div class="grid gap-2">
                             <x-select wire:model="form.business_type" :options="$business_types" label="Business Types" />
                             <x-input has-error type="number" wire:model="form.business_size" label="Business Size" />
@@ -76,30 +52,11 @@
                         </div>
                     </div>
 
-                    <div x-show="step == 6" x-transition>
-                        <div class="grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-center">
-                            @foreach ($packages as $package)
-                            <div class="w-full relative mx-auto transition cursor-pointer rounded-lg" @click="package ='{{$package->name}}';$wire.updateCurrentPackage('{{$package->name}}')" :class="package == '{{$package->name}}' ? 'border border-primary' : ''">
-                                <template
-                                    x-if="package ==  '{{$package->name}}'">
-                                    <x-badge name="chosen package" class="absolute top-2 right-2 z-[99]" />
-                                </template>
-                                <x-packages.card :$package />
-                            </div>
-                            @endforeach
-                        </div>
-                        <div class="mt-2">
-                            <x-input.error class="block text-center" error="form.package" />
-                            <x-input.error class="block text-center" error="form.currentPackage" />
-                        </div>
+                    @if ($package_exists)
+                        Packageextist
+                    @endif
 
-                        <div class="flex flex-col mt-8">
-                            <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Submit</x-button>
-                            <x-button class="w-48 mx-auto mb-2 !bg-transparent !text-gray-500" @click="$wire.stepBack()">Back</x-button>
-                        </div>
-                    </div>
-
-                    <div x-show="step == 7" x-transition>
+                    <div x-show="step == {{count($steps)}}" x-transition>
 
                         @if ($form->currentPackage)
                         <div class="flex flex-col lg:flex-row justify-center mx-auto mt-4 gap-4" x-data="imagePreview()">
@@ -196,24 +153,23 @@
         </div>
     </div>
 </div>
-
-<script>
-    function makeTitle(text) {
-        return text.replaceAll("_", " ")
-    }
-
-    function imagePreview() {
-        return {
-            imageUrl: null,
-            isViewingImage: false,
-            previewImage: function(event) {
-                const file = event.target.files[0]
-                if (file) {
-                    this.imageUrl = URL.createObjectURL(file);
-                } else {
-                    this.imageUrl = null
+    <script>
+        function makeTitle(text) {
+            return text.replaceAll("_", " ")
+        }
+    
+        function imagePreview() {
+            return {
+                imageUrl: null,
+                isViewingImage: false,
+                previewImage: function(event) {
+                    const file = event.target.files[0]
+                    if (file) {
+                        this.imageUrl = URL.createObjectURL(file);
+                    } else {
+                        this.imageUrl = null
+                    }
                 }
             }
         }
-    }
-</script>
+    </script>
