@@ -13,6 +13,7 @@ class TenantRegisterForm extends Form
     public $email, $phone;
     public $password, $password_confirmation;
     public $business_name, $business_domain;
+    public $payment_id = '';
     public $business_type = '';
     public $business_size;
     public Package $currentPackage;
@@ -23,21 +24,24 @@ class TenantRegisterForm extends Form
     {
         return  [
             "user_info" => [
-                'first_name' => 'required',
-                'last_name' => 'required',
                 'username' => 'required',
                 'email' => 'required|email',
                 'phone' => 'required|string',
                 'password' => ['required', 'confirmed', Password::defaults()],
             ],
-          
+
             "business_info" => [
                 'business_name' => 'required',
                 'business_domain' => 'required',
                 'business_type' => 'required',
-                'business_size' => 'required|integer'
             ],
-           
+            "choose_package" => [
+                'currentPackage' => 'required',
+            ],
+            "payment_information" => [
+                'payment_id' => 'required'
+            ]
+
         ];
     }
     public function validateStep($step)

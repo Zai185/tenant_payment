@@ -7,5 +7,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Packages::class);
 
-Route::get('/tenant/sign-up', TenantRegister::class);
+Route::get('/tenant-user/register', TenantRegister::class);
 
