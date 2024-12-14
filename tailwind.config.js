@@ -38,7 +38,7 @@ export default {
                 },
 
                 primary: {
-                    DEFAULT: "var(--primary)",
+                    DEFAULT: "var(--primary)"   ,
                     text: "hsl(var(--primary-text) / <alpha-value>)",
                 },
 
