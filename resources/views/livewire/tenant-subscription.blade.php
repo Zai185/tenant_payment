@@ -1,12 +1,12 @@
 <x-layouts.dashboard>
     <div x-data="{filter_open: false}">
         <div class="my-4">
-            <h1 class="text-2xl font-bold">Tenants</h1>
+            <h1 class="text-2xl font-bold">Tenant Subscriptions</h1>
         </div>
 
-        <div class="flex items-center justify-between w-full overflow-auto rounded-md border border-main-border bg-surface shadow-lg shadfow-gray-400 p-4 my-4 flex-wrap md:flex-nowrap gap-2">
+        <div class="flex items-center justify-between w-full overflow-auto rounded-md border border-main-border bg-surface shadow-lg shadow-gray-400 p-4 flex-wrap md:flex-nowrap my-4 gap-2">
 
-            <x-input.left-icon wire:model.live="tenant_search" placeholder="Search something..." class="w-full">
+            <x-input.left-icon wire:model.live="subscription_search" placeholder="Search something...">
                 <x-icons.search />
             </x-input.left-icon>
 
@@ -16,12 +16,7 @@
                     <x-icons.filter />
                     Filter
                 </x-button>
-                <x-button>
-                    <a href="{{route('tenants.create')}}">
-                        + Create a tenant</x-button>
-                    </a>
             </div>
-
         </div>
 
         <!-- //! filter box -->
@@ -41,6 +36,7 @@
                         <option value="">None</option>
                         @foreach ($statusMap as $index=>$s) <option value="{{$index}}">{{$s['label']}}</option>@endforeach
                     </x-select>
+
                 </div>
             </div>
         </div>
@@ -51,33 +47,40 @@
 
                 <!-- // TODO FIX COLOR CODE 400  -->
                 <table class="w-full text-left text-sm text-main-text rtl:text-right">
-                    <thead class="bg-primary text-xs uppercase text-primary-text">
+                    <thead class="bg-primary  text-xs uppercase text-primary-text">
+
                         <tr>
                             <th scope="col" class="px-4 py-3">No.</th>
-                            <th scope="col" class="px-4 py-3">Name</th>
+                            <th scope="col" class="px-4 py-3">Company</th>
                             <th scope="col" class="px-4 py-3">Domain</th>
-                            <th scope="col" class="px-4 py-3">Status</th>
-                            <th scope="col" class="px-4 py-3">Created at</th>
+                            <th scope="col" class="px-4 py-3">Pay Status</th>
+                            <th scope="col" class="px-4 py-3 w-24">Expire at</th>
+                            <th scope="col" class="px-4 py-3 w-24">Created at</th>
                             <th scope="col" class="px-4 py-3">Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        @foreach ($tenants as $index => $tenant)
+                        @foreach ($subscriptions as $index => $subscription)
 
                         <tr
-                            class="border-b bg-surface text-main-text odd:bg-surface even:bg-accent" x-data="{actionOpen:false}">
+                            class="border-b bg-surface text-main-text odd:bg-surface even:bg-accent" x-data="{actionOpen : false}">
 
-                            <td class="px-4 py-3">{{ $tenants->firstItem() + $index}}</td>
-                            <td class="px-4 py-3">{{$tenant->name}}</td>
-                            <td class="px-4 py-3">{{$tenant->domain_name}}</td>
+                            <td class="px-4 py-3">{{ $subscriptions->firstItem() + $index}}</td>
+                            <td class="px-4 py-3">{{$subscription->name}}</td>
+                            <td class="px-4 py-3">{{$subscription->domain_name}}</td>
                             <td class="px-4 py-3">
-                                <x-badge class="{{$statusMap[$tenant->status]['class']}}">
-                                    {{$statusMap[$tenant->status]['label']}}
+                                <x-badge class="{{$statusMap[$subscription->status]['class']}}">
+                                    {{$statusMap[$subscription->status]['label']}}
                                 </x-badge>
+
                             </td>
-                            <td class="px-4 py-3">{{$tenant->created_at}}</td>
+                            @php
+                            $will_expire_soon = today()->addDays(14) > $subscription->expire_at ? 'text-danger' : '';
+                            @endphp
+                            <td class="px-4 py-3 {{$will_expire_soon}}">{{$subscription->expire_at}}</td>
+                            <td class="px-4 py-3">{{$subscription->created_at}}</td>
                             <td class="px-4 py-3 relative">
                                 <x-button @focus="actionOpen = true" @blur="actionOpen=false" class="flex items-center">
                                     <span>Action</span>
@@ -89,9 +92,9 @@
                                     <a href="#" class=" py-1 px-3 block   hover:bg-surface select-none text-muted-text ">Action 2</a>
 
                                     <a href="#" class=" py-1 px-3 block   hover:bg-surface select-none text-muted-text ">Action 3</a>
+
                                 </div>
                             </td>
-
 
                         </tr>
                         @endforeach
@@ -99,17 +102,11 @@
 
                     </tbody>
                 </table>
-
             </div>
 
-
             <div>
-                <x-paginator :paginators="$tenants" :$perPage />
+                <x-paginator :paginators="$subscriptions" :$perPage />
             </div>
         </div>
     </div>
-
-
-
-
 </x-layouts.dashboard>

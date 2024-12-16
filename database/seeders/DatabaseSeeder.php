@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Feature;
 use App\Models\FeaturePackage;
 use App\Models\Package;
+use App\Models\Subscription;
+use App\Models\Tenant;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -52,5 +54,8 @@ class DatabaseSeeder extends Seeder
                 'feature_id' => $fp[1]
             ]);
         }
+
+        Tenant::factory(100)->create();
+        Subscription::factory(100)->create();
     }
 }

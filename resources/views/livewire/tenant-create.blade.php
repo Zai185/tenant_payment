@@ -1,91 +1,34 @@
-<div>
-    <div x-data="{step: @entangle('step'), package: @entangle('form.package'), payment_type: @entangle('payment_type'), payment_id: @entangle('form.payment_id'), payment: @entangle('payment')}" class="w-full flex">
-        <div class="py-2 px-4 w-full">
-            <form wire:submit.prevent="submit" class="mx-auto py-8">
-                @csrf
-                @if ($step <= count($steps))
-                    <div class="mb-4">
-                    <p class="text-xs my-4 text-muted-text text-center">Step {{$step}}/{{count($steps)}}</p>
-                    <h2 class="text-2xl font-medium mt-4 text-center capitalize" x-text="('{{$steps[$step -1]['title']}}').replaceAll('_', ' ') ">
-                    </h2>
-                    <p class="text-center text-xs text-muted-text">{{$steps[$step -1]['description']}}</p>
-        </div>
-        @endif
-
-        <div x-show="step == 1" x-transition class="w-full max-w-[448px] mx-auto">
-            <div class="grid md:grid-cols-2 gap-2">
-
-                <x-input has-error type="text" wire:model="form.username" placeholder="Username" layout-class="md:col-span-2" label="Username" />
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-2">
-                <x-input has-error type="email" wire:model="form.email" placeholder="Email" label="Email" />
-                <x-input has-error type="text" wire:model="form.phone" placeholder="Phone" label="Phone" />
-            </div>
-
-            <div class="grid gap-2">
-                <x-input has-error type="password" wire:model="form.password" placeholder="Password" label="Password" />
-                <x-input has-error type="password" wire:model="form.password_confirmation" placeholder="Confirm Password" label="Password confirmation" />
-            </div>
-
-            <div class="flex flex-col mt-8">
-                <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
-            </div>
-
+<x-layouts.dashboard>
+    <div x-data="{step: @entangle('step'), package: @entangle('form.package'), payment_type: @entangle('payment_type'), payment_id: @entangle('form.payment_id'), payment: @entangle('payment')}">
+        <div class="my-4">
+            <h1 class="text-2xl font-bold capitalize" x-text="makeTitle('{{$steps[$step - 1]['title']}}')"></h1>
+            <p>{{$steps[$step - 1]['description']}}</p>
         </div>
 
-        <div x-show="step == 2" x-transition class="w-full max-w-[448px] mx-auto">
-            <div class="grid gap-2">
-                <x-input has-error type="text" wire:model="form.business_name" wire:keydown.debounce.800ms="updateDomain()" label="Business Name" />
-                <x-input.right-text text=".picosbs.com" type="text" wire:model="form.business_domain" label="Domain" />
-                <span wire:loading="updateDomain">Generating Domain...</span>
-            </div>
-
-            <div class="grid gap-2">
-                <x-select wire:model="form.business_type" label="Business Types">
-                    <option value="">Select a business</option>
-                    @foreach ($business_types as $business_type)
-                    <option value="{{$business_type}}">{{$business_type}}</option>
-                    @endforeach
-                </x-select>
-
-            </div>
-
-            <div class="flex flex-col mt-8">
-                <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
-                <x-button class="w-48 mx-auto mb-2 !bg-transparent !text-gray-500" @click="$wire.stepBack()">Back</x-button>
-            </div>
-        </div>
-
-        @if (!$package_exists)
-        <div x-show="step == 3" x-transition>
+        <div x-show="step == 1" class="my-4">
             <div class="grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-center">
                 @foreach ($packages as $package)
-                <div class="w-full relative mx-auto transition cursor-pointer rounded-lg" @click="package ='{{$package->name}}';$wire.updateCurrentPackage('{{$package->name}}')" :class="package == '{{$package->name}}' ? 'border border-primary' : ''">
-                    <template
-                        x-if="package ==  '{{$package->name}}'">
+                <div class="w-full relative mx-auto transition cursor-pointer rounded-lg"
+                    @click="package ='{{$package->name}}';$wire.updateCurrentPackage('{{$package->name}}')"
+                    :class="package == '{{$package->name}}' ? 'border border-primary' : ''">
+                    <template x-if="package ==  '{{$package->name}}'">
                         <x-badge class="absolute top-2 right-2 z-[99]">chosen package</x-badge>
                     </template>
                     <x-packages.card :$package />
                 </div>
                 @endforeach
             </div>
-            <div class="mt-2">
-                <x-input.error class="block text-center" error="form.package" />
-                <x-input.error class="block text-center" error="form.currentPackage" />
-            </div>
+            <x-input.error error="form.currentPackage" />
 
-            <div class="flex flex-col mt-8">
-                <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
-                <x-button class="w-48 mx-auto mb-2 !bg-transparent !text-gray-500" @click="$wire.stepBack()">Back</x-button>
+            <div class="mt-2 ">
+                <x-button class="ms-auto" @click="$wire.stepForward()">Next</x-button>
             </div>
         </div>
-        @endif
 
         <div x-show="step == {{count($steps)}}" x-transition>
 
-            @if ($form->currentPackage)
-            <div class="flex flex-col lg:flex-row justify-center mx-auto mt-4 gap-4" x-data="imagePreview()">
+            @if (isset($form->currentPackage))
+            <div class="flex flex-col lg:flex-row  mt-4 gap-4" x-data="imagePreview()">
 
                 <div>
                     <x-packages.card class="max-w-[448px] mx-auto" :package="$form->currentPackage" />
@@ -108,15 +51,14 @@
                     <div class="flex gap-4 md:items-center">
 
                         <label class="w-32" for="">Payment Type</label>
-                        <div class="flex flex-col md:flex-row gap-2">
+                        <div class="flex gap-2">
 
                             <div>
-                                <input type="radio" name="payment_type" wire:model="payment_type" value="local">
-                                <label for="">Local</label>
+                                <label @click="payment_type = 'local'" :class="payment_type == 'local' ?'bg-primary text-primary-text' : 'text-primary'" class="border select-none cursor-pointer py-1 px-2 border-primary  rounded">Local</label>
                             </div>
                             <div>
-                                <input type="radio" name="payment_type" wire:model="payment_type" value="credit">
-                                <label for="">Credit Card</label>
+
+                                <label @click="payment_type = 'credit'" :class="payment_type == 'credit' ?'bg-primary text-primary-text' : 'text-primary'" class="border select-none cursor-pointer py-1 px-2 border-primary rounded">Credit</label>
                             </div>
                         </div>
                     </div>
@@ -190,21 +132,14 @@
                     <x-button class="w-full !bg-transparent !text-gray-500" @click="$wire.stepBack()">Back</x-button>
                 </div>
 
-                <div x-show="imageUrl && isViewingImage" class="fixed top-0 left-0 bg-gray-800/20 backdrop-blur transition w-screen h-screen z-[9999] flex items-center justify-center" @click="isViewingImage = false" :class="isViewingImage ? 'opacity-1' : 'opacity-0 pointer-events-none'" x-transition>
-                    <img :src="imageUrl" class="h-full">
+                <div x-show="imageUrl && isViewingImage" class="fixed top-0 left-0 bg-gray-800/20 backdrop-blur  transition w-screen h-screen z-[9999] flex items-center justify-center" @click="isViewingImage = false" :class="isViewingImage ? 'opacity-1' : 'opacity-0 pointer-events-none'" x-transition>
+                    <img :src="imageUrl" class="h-full object-contain">
                 </div>
             </div>
             @endif
         </div>
-        </form>
-    </div>
-    <div class="w-96 h-screen overflow-y-auto py-4 ps-4 pe-16 bg-white sticky top-0 hidden md:block">
-        <div class="my-4">
-            <x-stepper :$steps v-bind:step="step" />
-        </div>
-    </div>
-</div>
-</div>
+</x-layouts.dashboard>
+
 <script>
     function makeTitle(text) {
         return text.replaceAll("_", " ")

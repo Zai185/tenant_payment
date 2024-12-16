@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class TenantRegister extends Component
 {
-    public $step = 1;
+    public $step = 4;
     public TenantRegisterForm $form;
     public $payment_type = 'local';
     public $package_exists;
