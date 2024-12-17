@@ -7,7 +7,10 @@
         <h1 class="text-2xl font-bold">Tenants</h1>
     </div>
     <div class="flex flex-col md:flex-row gap-4">
-        <x-packages.card :package="$currentPackage" class="md:sticky md:top-12" />
+        <div class="relative">
+            <x-badge class="absolute top-4 right-4 z-10">Current Package</x-badge>
+            <x-packages.card :package="$currentPackage" class="md:sticky md:top-12" />
+        </div>
         <form class="w-fit space-y-2 bg-white p-4 rounded-lg shadow" x-data="imagePreview">
             <h4 class="text-lg font-bold py-2 border-b">Tenant Subscriptions</h4>
 

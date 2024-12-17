@@ -3,7 +3,7 @@
 
 <div class="flex gap-4">
 
-    <div class="w-1/3 shadow-lg bg-white rounded-lg py-4 px-8">
+    <div class="w-1/3 shadow-lg self-start bg-white rounded-lg py-4 px-8">
         <h3 class="text-2xl font-bold">Tenant Name</h3>
         <hr class="divider my-2">
 
