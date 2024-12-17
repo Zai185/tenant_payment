@@ -49,7 +49,7 @@
         <div class="w-full overflow-x-auto">
 
             <!-- // TODO FIX COLOR CODE 400  -->
-            <table class="w-full text-left text-sm text-main-text rtl:text-right">
+            <table class=" w-full text-left text-sm text-main-text rtl:text-right">
                 <thead class="bg-primary  text-xs uppercase text-primary-text">
 
                     <tr>
@@ -65,51 +65,50 @@
 
                 <tbody>
                     @foreach ($subscriptions as $index => $subscription)
-
+                    
+                    
                     <tr
-                        class=" border-b bg-surface text-main-text odd:bg-surface even:bg-accent" x-data="{actionOpen : false}">
+                        class="last:align-top last:md:align-middle last:h-36 last:md:h-auto border-b bg-surface text-main-text odd:bg-surface even:bg-accent" x-data="{actionOpen : false}">
 
-                        <td class="px-4 py-3">{{ $subscriptions->firstItem() + $index}}</td>
+                        <td class="px-4 py-3">{{ $subscriptions->firstItem() + $index}} </td>
                         <td class="px-4 py-3">{{$subscription->name}}</td>
                         <td class="px-4 py-3">{{$subscription->domain_name}}</td>
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 ">
                             <x-badge class="{{$statusMap[$subscription->status]['class']}}">
                                 {{$statusMap[$subscription->status]['label']}}
                             </x-badge>
 
                         </td>
-                        @php
-                        $will_expire_soon = today()->addDays(14) > $subscription->expire_at ? 'text-danger' : '';
-                        @endphp
-                        <td class="px-4 py-3 {{$will_expire_soon}}">{{$subscription->expire_at}}</td>
+                        
+                        <td class="px-4 py-3 {{today()->addDays(14) > $subscription->expire_at ? 'text-danger' : ''}}">{{$subscription->expire_at}}</td>
                         <td class="px-4 py-3">{{$subscription->created_at}}</td>
-                        <td class="px-4 py-3">
-                            <x-button @focus="actionOpen = true" @blur="actionOpen=false" class="flex items-center">
+                        <td class="px-4 py-3 relative md:static {{($subscriptions->lastItem() == $subscriptions->firstItem() + $index ) ? '' : ''}}">
+
+                            <x-button x-ref="action_btn" @focus="actionOpen = true" @blur="actionOpen=false" class="flex items-center relative">
                                 <span>Action</span>
                                 <x-icons.arrow-down />
                             </x-button>
-                            <div x-show="actionOpen" class="absolute mt-2 w-32 bg-white z-10 border rounded-lg" x-transition>
-                                <a href="#" class=" py-1 px-3 block   hover:bg-surface select-none text-muted-text ">Action 1</a>
+                        
+                            <div x-show="actionOpen" class="absolute w-fit bg-white z-10 border rounded-lg " :style="{minWidth: $refs.action_btn.clientWidth + 'px'}" x-transition>
+                                <a href="#" class=" py-1 px-3 block  hover:bg-surface select-none text-muted-text ">Action 1</a>
 
-                                <a href="#" class=" py-1 px-3 block   hover:bg-surface select-none text-muted-text ">Action 2</a>
+                                <a href="#" class=" py-1 px-3 block  hover:bg-surface select-none text-muted-text ">Action 2</a>
 
-                                <a href="#" class=" py-1 px-3 block   hover:bg-surface select-none text-muted-text ">Action 3</a>
+                                <a href="#" class=" py-1 px-3 block  hover:bg-surface select-none text-muted-text ">Action 3</a>
 
                             </div>
                         </td>
-
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
         <div>
             <x-paginator :paginators="$subscriptions" :$perPage />
         </div>
     </div>
 
-   
+
 </div>
 
 @endsection

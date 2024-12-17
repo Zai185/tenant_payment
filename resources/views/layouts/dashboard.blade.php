@@ -24,7 +24,7 @@ $navmenus =[
 @endphp
 <div class="flex" x-data="{sidebarOpen : false}">
     <aside
-        class="w-screen max-w-64 basis-64 fixed lg:sticky left-0 top-0 z-40 space-y-2 overflow-y-auto h-screen border-r border-main-border bg-surface px-3 pb-4 pt-2 shadow-sm ease-out transition flex flex-col justify-between duration-300 lg:translate-x-0" :class="sidebarOpen ? '' : '-translate-x-full'">
+        class="w-screen h-full min-h-[100dvh] max-w-64 basis-64 fixed lg:sticky left-0 top-0 z-40 space-y-2 overflow-y-auto  border-r border-main-border bg-surface px-3 pb-4 pt-2 shadow-sm ease-out transition flex flex-col justify-between duration-300 lg:translate-x-0" :class="sidebarOpen ? '' : '-translate-x-full'">
         <div class="flex-1">
             <div class="flex items-center gap-2">
                 <button
@@ -60,7 +60,7 @@ $navmenus =[
         </div>
         <a
             href="#"
-            class="inline-flex bg-accent  h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary hover:text-primary-text transition duration-100">
+            class="inline-flex bg-accent mb-12 md:mb-0 w-full cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary hover:text-primary-text transition duration-100">
             <span
                 class="flex size-5 flex-shrink-0 items-center justify-center [&>svg]:h-4 [&>svg]:w-4">
                 @includeIf("components.icons.logout}")
@@ -71,8 +71,12 @@ $navmenus =[
         </a>
     </aside>
 
-    <div class="flex-1 p-4 md:p-8 w-full">
-        <x-icons.menu class="block lg:hidden" @click="sidebarOpen = true" />
-        @yield('content')
+    <div class="flex-1 w-full" >
+        <div class="flex items-center py-4 px-4 md:px-8 justify-between bg-white">
+            <x-icons.menu class="block lg:hidden" @click="sidebarOpen = true" />
+        </div>
+        <div class="p-4 md:p-8" @click="sidebarOpen = false">
+            @yield('content')
+        </div>
     </div>
 </div>
