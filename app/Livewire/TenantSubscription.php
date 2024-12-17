@@ -13,7 +13,6 @@ class TenantSubscription extends Component
     use WithPagination;
 
     public $perPage = 10;
-    public $renewMonth;
     public $status = '';
     public $subscription_search;
     public TenantSubscriptionForm $form;

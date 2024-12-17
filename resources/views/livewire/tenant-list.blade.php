@@ -80,7 +80,7 @@
                             </x-badge>
                         </td>
                         <td class="px-4 py-3">{{$tenant->created_at}}</td>
-                        <td class="px-4 py-3 relative">
+                        <td class="px-4 py-3">
                             <x-button @focus="actionOpen = true" @blur="actionOpen=false" class="flex items-center">
                                 <span>Action</span>
                                 <x-icons.arrow-down />
