@@ -72,8 +72,8 @@ $navmenus =[
     </aside>
 
     <div class="flex-1 w-full" >
-        <div class="flex items-center py-4 px-4 md:px-8 justify-between bg-white">
-            <x-icons.menu class="block lg:hidden" @click="sidebarOpen = true" />
+        <div class="flex lg:hidden items-center py-4 px-4 md:px-8 justify-between bg-white">
+            <x-icons.menu @click="sidebarOpen = true" />
         </div>
         <div class="p-4 md:p-8" @click="sidebarOpen = false">
             @yield('content')
