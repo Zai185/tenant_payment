@@ -3,6 +3,7 @@
 use App\Livewire\Packages;
 use App\Livewire\Payment;
 use App\Livewire\TenantCreate;
+use App\Livewire\TenantDetail;
 use App\Livewire\TenantList;
 use App\Livewire\TenantRegister;
 use App\Livewire\TenantSubscription;
@@ -18,4 +19,5 @@ Route::get('/tenants/create', TenantCreate::class)->name('tenants.create');
 
 Route::get('/tenant-user/profile', TenantUserProfile::class)->name('tenant-user.profile');
 Route::get('/tenants/subscriptions', TenantSubscription::class)->name('tenants.subscriptions');
+Route::get('/tenants/detail', TenantDetail::class)->name('tenants.detail');
 

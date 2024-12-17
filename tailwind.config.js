@@ -58,12 +58,12 @@ export default {
                 },
 
                 danger: {
-                    DEFAULT: "hsl(var(--danger) / <alpha-value>)",
+                    DEFAULT: "hsl(var(--danger) / <alpha-value>) !important",
                     text: "hsl(var(--danger-text) / <alpha-value>)",
                 },
 
                 success: {
-                    DEFAULT: "hsl(var(--success) / <alpha-value>)",
+                    DEFAULT: "hsl(var(--success) / <alpha-value>) !important",
                     text: "hsl(var(--success-text) / <alpha-value>)",
                 },
 
