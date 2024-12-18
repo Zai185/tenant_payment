@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="" x-data="{payment_type: @entangle('payment_type'),  payment: @entangle('payment')}">
+<div x-data="{payment_type: @entangle('payment_type'),  payment: @entangle('payment')}">
     <div class="my-4">
         <h1 class="text-2xl font-bold">Tenants</h1>
     </div>

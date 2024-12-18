@@ -3,6 +3,7 @@
 use App\Livewire\Packages;
 use App\Livewire\Payment;
 use App\Livewire\SubscriptionRenew;
+use App\Livewire\SubscriptionUpgradePlan;
 use App\Livewire\TenantCreate;
 use App\Livewire\TenantDetail;
 use App\Livewire\TenantList;
@@ -23,4 +24,5 @@ Route::get('/tenants/subscriptions', TenantSubscription::class)->name('tenants.s
 Route::get('/tenants/detail', TenantDetail::class)->name('tenants.detail'); 
 
 Route::get('/tenants/subscriptions/renew', SubscriptionRenew::class)->name('subscriptions.renew');
+Route::get('/tenants/subscriptions/upgrade-plan', SubscriptionUpgradePlan::class)->name('subscriptions.upgrade-plan');
 
