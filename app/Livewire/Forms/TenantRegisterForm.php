@@ -14,7 +14,7 @@ class TenantRegisterForm extends Form
     public $password, $password_confirmation;
     public $business_name, $business_domain;
     public $payment_id = '';
-    public $business_type = '';
+    public $business_type = null;
     public $business_size;
     public Package $currentPackage;
     public $package;

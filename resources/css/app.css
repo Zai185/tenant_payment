@@ -17,7 +17,7 @@
     --accent: 0 0% 90%; /* neutral-200 */
     --accent-text: 0 0% 0%; /* black */
  
-    --primary: #519ff7; /* orange-500 */
+    --primary: 212 91% 64%; /* blue-500 */
     --primary-text: 0 0% 100%; /* white */
  
     --secondary: 34 100% 82%; /* #FED7AA */
@@ -60,7 +60,7 @@
     --accent: 0 0% 12%; /* neutral-850 */
     --accent-text: 0 0% 96%; /* neutral-100 */
  
-    --primary: 29 100% 52%; /* orange-500 */
+    --primary: 212 91% 64%; /* orange-500 */
     --primary-text: 0 0% 100%; /* white */
  
     --secondary: 34 100% 82%; /* #FED7AA */

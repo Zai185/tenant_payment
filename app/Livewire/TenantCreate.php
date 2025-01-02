@@ -43,7 +43,7 @@ class TenantCreate extends Component
             'account_name' => "Thiri",
             'account_number' => "1233 4234 2342 4533",
             'qr_code' => null
-        ],
+        ],  
     ];
    
     public function updatePayment()

@@ -28,7 +28,7 @@
 
     <!-- //! filter box -->
     <div x-show="filter_open"
-        x-transition:enter="transition  origin-top ease-out duration-300"
+        x-transition:enter="transition origin-top ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-0"
         x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition origin-top ease-in duration-300"
@@ -38,16 +38,16 @@
         <div>
             <div>
                 <p class="font-medium">Status</p>
-
-                <x-select class="text-sm" wire:model.live="status" wire:change="resetPage()">
-                    <option value="">None</option>
-                    @foreach ($statusMap as $index=>$s) <option value="{{$index}}">{{$s['label']}}</option>@endforeach
+                <x-select class="text-sm" text="{{$status}}" default-text="None" wire:model.live="status" wire:change="resetPage()">
+                    @foreach ($statusMap as $index=>$s)
+                    <x-option value="{{$index}}">{{$s['label']}}</x-option>
+                    @endforeach
                 </x-select>
             </div>
-         </div>
+        </div>
     </div>
 
-   <div
+    <div
         class="relative w-full overflow-auto rounded-md border border-main-border bg-surface shadow-lg shadow-gray-400">
         <div class="w-full overflow-x-auto">
 

@@ -1,12 +1,12 @@
-<div>
+<div class="dark:bg-primary-dark">
     <div x-data="{step: @entangle('step'), package: @entangle('form.package'), payment_type: @entangle('payment_type'), payment_id: @entangle('form.payment_id'), payment: @entangle('payment')}" class="w-full flex">
         <div class="py-2 px-4 w-full">
-            <form wire:submit.prevent="submit" class="mx-auto py-8">
+            <form wire:submit.prevent="submit" class="mx-auto py-8 max-w-[448px] px-8 rounded-lg dark:bg-secondary-dark">
                 @csrf
                 @if ($step <= count($steps))
                     <div class="mb-4">
                     <p class="text-xs my-4 text-muted-text text-center">Step {{$step}}/{{count($steps)}}</p>
-                    <h2 class="text-2xl font-medium mt-4 text-center capitalize" x-text="('{{$steps[$step -1]['title']}}').replaceAll('_', ' ') ">
+                    <h2 class="text-2xl font-medium mt-4 text-center capitalize dark:text-primary-text" x-text="('{{$steps[$step -1]['title']}}').replaceAll('_', ' ') ">
                     </h2>
                     <p class="text-center text-xs text-muted-text">{{$steps[$step -1]['description']}}</p>
         </div>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="flex flex-col mt-8">
-                <x-button class="w-48 mx-auto mb-2" @click="$wire.stepForward()">Next</x-button>
+                <x-button class="w-48 mx-auto mb-2 " @click="$wire.stepForward()">Next</x-button>
             </div>
 
         </div>
@@ -38,17 +38,18 @@
             <div class="grid gap-2">
                 <x-input has-error type="text" wire:model="form.business_name" wire:keydown.debounce.800ms="updateDomain()" label="Business Name" />
                 <x-input.right-text text=".picosbs.com" type="text" wire:model="form.business_domain" label="Domain" />
-                <span wire:loading="updateDomain">Generating Domain...</span>
+                <span wire:loading="updateDomain" wire:target="updateDomain()">Generating Domain...</span>
             </div>
 
+
             <div class="grid gap-2">
-                <x-select wire:model="form.business_type" label="Business Types">
-                    <option value="">Select a business</option>
+                <x-select wire:model="form.business_type" label="Business Types" text="{{$form->business_type}}" default-text="Select a business">
                     @foreach ($business_types as $business_type)
-                    <option value="{{$business_type}}">{{$business_type}}</option>
+                    <x-option @click="$wire.set('form.business_type', '{{$business_type}}')">
+                        {{$business_type}}
+                    </x-option>
                     @endforeach
                 </x-select>
-
             </div>
 
             <div class="flex flex-col mt-8">
@@ -124,12 +125,11 @@
                     <!-- //! payment local  -->
                     <template x-if="payment_type == 'local'">
                         <div class="space-y-2 w-full">
-
-                            <x-select wire:model="form.payment_id" @change="$wire.updatePayment();imageUrl = null">
-
-                                <option value="" disabled selected>Select a payment</option>
+                            <x-select wire:model="form.payment_id" text="{{$payment ? $payment['name'] : null}}" default-text="Select a payment">
                                 @foreach ($payments as $payment)
-                                <option value="{{$payment['id']}}">{{$payment['name']}}</option>
+                                <x-option @click="$wire.updatePayment();imageUrl = null;$wire.set('form.payment_id', '{{$payment['id']}}')">
+                                    {{$payment['name']}}
+                                </x-option>
                                 @endforeach
                             </x-select>
                             <x-input.error error="form.payment_id" />
@@ -206,6 +206,8 @@
 </div>
 </div>
 <script>
+      const html = document.documentElement;
+      html.classList.toggle('dark');
     function makeTitle(text) {
         return text.replaceAll("_", " ")
     }

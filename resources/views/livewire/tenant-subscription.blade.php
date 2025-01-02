@@ -24,7 +24,7 @@
 
     <!-- //! filter box -->
     <div x-show="filter_open"
-        x-transition:enter="transition  origin-top ease-out duration-300"
+        x-transition:enter="transition origin-top ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-0"
         x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition origin-top ease-in duration-300"
@@ -35,9 +35,12 @@
             <div>
                 <p class="font-medium">Status</p>
 
-                <x-select class="text-sm" wire:model.live="status" wire:change="resetPage()">
-                    <option value="">None</option>
-                    @foreach ($statusMap as $index=>$s) <option value="{{$index}}">{{$s['label']}}</option>@endforeach
+                <x-select text="{{$status}}" default-text="None" class="text-sm" wire:model.live="status" wire:change="resetPage()">
+                    @foreach ($statusMap as $index=>$s)
+                    <option value="{{$index}}">
+                        {{$s['label']}}
+                    </option>
+                    @endforeach
                 </x-select>
 
             </div>
@@ -65,8 +68,8 @@
 
                 <tbody>
                     @foreach ($subscriptions as $index => $subscription)
-                    
-                    
+
+
                     <tr
                         class="last:align-top last:md:align-middle last:h-36 last:md:h-auto border-b bg-surface text-main-text odd:bg-surface even:bg-accent" x-data="{actionOpen : false}">
 
@@ -79,7 +82,7 @@
                             </x-badge>
 
                         </td>
-                        
+
                         <td class="px-4 py-3 {{today()->addDays(14) > $subscription->expire_at ? 'text-danger' : ''}}">{{$subscription->expire_at}}</td>
                         <td class="px-4 py-3">{{$subscription->created_at}}</td>
                         <td class="px-4 py-3 relative md:static {{($subscriptions->lastItem() == $subscriptions->firstItem() + $index ) ? '' : ''}}">
@@ -88,7 +91,7 @@
                                 <span>Action</span>
                                 <x-icons.arrow-down />
                             </x-button>
-                        
+
                             <div x-show="actionOpen" class="absolute w-fit bg-white z-10 border rounded-lg " :style="{minWidth: $refs.action_btn.clientWidth + 'px'}" x-transition>
                                 <a href="#" class=" py-1 px-3 block  hover:bg-surface select-none text-muted-text ">Action 1</a>
 

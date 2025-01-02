@@ -74,9 +74,8 @@
                     <template x-if="payment_type == 'local'">
                         <div class="space-y-2 w-full">
 
-                            <x-select wire:model="form.payment_id" @change="$wire.updatePayment();imageUrl = null">
+                            <x-select text="{{$payment['name']}}" default-text="Select a payment" wire:model="form.payment_id" @change="$wire.updatePayment();imageUrl = null">
 
-                                <option value="" disabled selected>Select a payment</option>
                                 @foreach ($payments as $payment)
                                 <option value="{{$payment['id']}}">{{$payment['name']}}</option>
                                 @endforeach

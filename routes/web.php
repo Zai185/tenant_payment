@@ -13,6 +13,7 @@ use App\Livewire\TenantUserProfile;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Packages::class);
+Route::get('/test', fn ()=> view('ui-test') );
 
 Route::get('/tenant-user/register', TenantRegister::class)->name('tenant-user.register');
 

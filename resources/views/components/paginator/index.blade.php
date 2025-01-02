@@ -110,13 +110,13 @@
 
     <div class="order-2 md:order-none w-1/3 md:w-1/4 flex items-center justify-end gap-2">
         <span class="text-sm text-muted-text">PerPage</span>
-        <x-select wire:model="perPage" class="form-control" wire:change="resetPage()">
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
+        <x-select text="{{$perPage}}" wire:model="perPage" class="form-control" wire:change="resetPage()">
+            @php
+            $pageOptions = ["10","15","20","30","50","100"]
+            @endphp
+            @foreach ($pageOptions as $opt)
+            <x-option wire:click="perPage = {{$opt}}">{{$opt}}</x-option>
+            @endforeach
         </x-select>
     </div>
 

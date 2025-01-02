@@ -1,0 +1,27 @@
+<div class="flex h-1 w-full min-w-40 max-w-xs items-center gap-1">
+    <div class="size-full rounded-full bg-muted"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+</div>
+
+<div class="flex h-1 w-full min-w-40 max-w-xs items-center gap-1">
+    <div class="size-full rounded-full bg-danger"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+</div>
+
+<div class="flex h-1 w-full min-w-40 max-w-xs items-center gap-1">
+    <div class="size-full rounded-full bg-warning"></div>
+    <div class="size-full rounded-full bg-warning"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+</div>
+
+<div class="flex h-1 w-full min-w-40 max-w-xs items-center gap-1">
+    <div class="size-full rounded-full bg-success"></div>
+    <div class="size-full rounded-full bg-success"></div>
+    <div class="size-full rounded-full bg-success"></div>
+    <div class="size-full rounded-full bg-muted"></div>
+</div>

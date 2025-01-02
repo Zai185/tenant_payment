@@ -1,6 +1,7 @@
 <div>
     @if (isset($label))
-    <label class="text-xs text-gray-700 h-full font-bold px-2">{{$label}}</label>
+    <label class="text-xs text-gray-700 dark:text-primary-dark-text font-bold px-2">{{$label}}</label>
+
     @endif
     <div class="border rounded-lg flex">
         <div class="flex-1 h-full">

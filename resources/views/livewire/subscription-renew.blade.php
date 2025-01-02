@@ -60,13 +60,11 @@
                 <template x-if="payment_type == 'local'">
                     <div class="space-y-2 w-full">
 
-                        <x-select wire:model="form.payment_id" @change="$wire.updatePayment();imageUrl = null">
-
-                            <option value="" disabled selected>Select a payment</option>
+                        <x-select text="{{$payment['name']}}" default-text="Select a payment" wire:model="form.payment_id" @change="$wire.updatePayment();imageUrl = null">
                             @foreach ($payments as $payment)
-                            <option value="{{$payment['id']}}">{{$payment['name']}}</option>
+                            <x-option value="{{$payment['id']}}">{{$payment['name']}}</x-option>
                             @endforeach
-                        </x-select>
+                        </x-select> 
                         <x-input.error error="form.payment_id" />
 
                         <p wire:loading>Loading...</p>
