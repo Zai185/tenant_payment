@@ -1,0 +1,4 @@
+<div
+    class="relative flex items-center justify-center shrink-0 overflow-hidden bg-muted rounded-full h-10 w-10 text-sm">
+    {{$slot}}
+</div>

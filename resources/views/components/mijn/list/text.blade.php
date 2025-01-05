@@ -1,0 +1,1 @@
+<li class="w-full px-3 py-2">{{$slot}}</li>
